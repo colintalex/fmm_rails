@@ -6,5 +6,7 @@ before_install:
 - gem install bundler
 - gem install pg -v '1.2.3' --source 'https://rubygems.org/'
 deploy:
+  provider: heroku
   api_key:
     secure: un7NQ7+b3KaW2FJiXuEGx6MbEbG7Nfu3nVjwIlzykJH03vCb+hVKOkJpb5Du9Yr9n29PPqwN8KroZeSDJMBykZcf/zAe5Z6FGLOVdKefhag+73wvLmLogmsHLdrAqmFwnBKxg5BcXejVUBjRNq4yl2nOoROS3Vt+Avg7tNAiyRh3BFuTswW7b4l2d2PNzALvHbgLcHLYLuge4MT6i89lOR7GPEWCGqxYB5KvvajaLcq1wj2xg2fxKMdTMnZhA9nL5RX+7qNYHaoxTbFnZwMr6145A8EJBIeELVZt7KfGyUcsEu+LPTA3c8+PLfQmG8+6DwkadmEo8uouRMMZi9GIBKPIiR1WDlWvJpMruQO1+dar3F4KvQu2jPu83lp3cdu8SBC9aLceuzN7uKLJ8fVMOeVgGO4DdVlEkBPWHxNRZNduGh9gZQa9KnIoL2+7zv3gjBPXKeFudgrRyyodeJ16QxsqC+xFfkXoUgT2fpkGdvxcLug8pTzFKmPbxI0COldAZmRAgv7yC/So55gYnOT/a87SmHTxCkzRQyqNJf6FYHPUW6wEl2JlqYxvcx4yzHn2tVWmuQ//CSmODdEJDWUbeJkFAVlq8u8Q4T8j/tpxQ/6N4atC70x+FeKlqDckZufihCRWxzpDcyRArH63ybfPnDBAyqmM6U5ZjqxOCVajeZY=
+  on: main
