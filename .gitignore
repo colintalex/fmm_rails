@@ -28,3 +28,6 @@
 
 # Ignore gems installed by Travis CI
 /vendor/bundle
+
+# Ignores SimpleCOV results
+/coverage
