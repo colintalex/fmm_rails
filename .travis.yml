@@ -5,6 +5,8 @@ before_install:
 - yes | gem update --system --force
 - gem install bundler
 - gem install pg -v '1.2.3' --source 'https://rubygems.org/'
+before_script:
+  - psql -c 'create database fmm_rails_test;' -U postgres
 deploy:
   provider: heroku
   api_key:
