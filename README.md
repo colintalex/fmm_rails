@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/colintalex/fmm_rails.svg?branch=main)](https://travis-ci.com/colintalex/fmm_rails)
+
 # README
 
 ## FindMyMarket API, Rails
