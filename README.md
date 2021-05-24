@@ -1,24 +1,6 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## FindMyMarket API, Rails
+### Tested with RSpec
+This API was developed as backend replacement for the FindMyMarket Web application, which formerly used Express/React.
+Developed from scratch, the API utilizes TDD practices to ensure maximum test coverage and reliable operation.
