@@ -4,7 +4,7 @@ RSpec.describe "Users", type: :request do
   describe "GET /" do
     it "returns http success" do
       user = User.create!(name: 'Tester', email: 'test@test.com')
-      get "/user/#{user.id}"
+      get "/api/v1/users/#{user.id}"
       expect(response).to have_http_status(:success)
       data = JSON.parse(response.body, :symbolize_names => true)
       expect(data.user.id).to eql(user.id)
