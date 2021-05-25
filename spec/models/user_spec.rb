@@ -28,5 +28,11 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
       expect(User.all.length).to eql(0)
     end
+
+    context "Email" do
+      xit "checks email for proper format" do
+
+      end
+    end
   end
 end
