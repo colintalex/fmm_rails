@@ -6,10 +6,13 @@ RSpec.describe "Users", type: :request do
       user = User.create!(name: 'Tester', email: 'test@test.com')
       get "/api/v1/users/#{user.id}"
       expect(response).to have_http_status(:success)
-      data = JSON.parse(response.body, :symbolize_names => true)
-      expect(data.user.id).to eql(user.id)
-      expect(data.user.name).to eql(user.name)
-      expect(data.user.email).to eql(user.email)
+      resp = JSON.parse(response.body, :symbolize_names => true)
+      expect(resp[:data][:id]).to eql(user.id.to_s)
+      expect(resp[:data][:type]).to eql('user')
+      expect(resp[:data][:attributes][:id]).to eql(user.id)
+      expect(resp[:data][:attributes][:name]).to eql(user.name)
+      expect(resp[:data][:attributes][:email]).to eql(user.email)
+      user.destroy
     end
   end
 
