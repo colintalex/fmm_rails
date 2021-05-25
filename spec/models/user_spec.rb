@@ -30,7 +30,7 @@ RSpec.describe User, type: :model do
     end
 
     context "Email" do
-      xit "checks email for proper format" do
+      it "checks email for proper format" do
 
       end
     end
