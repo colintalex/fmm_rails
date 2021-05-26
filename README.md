@@ -29,7 +29,7 @@ Base URL
 
 #### New User Endpoint
 ```
-/api/v1/users/new
+POST /api/v1/users/new
 ```
 Payload
 ```
@@ -39,6 +39,20 @@ Payload
   password: 'password',
   password_confirmation: 'password'
   }
+```
+Response
+```
+{data:
+  {
+    id: <user_id:String>,
+    type: <String>
+  }
+}
+```
+
+#### Show Single User
+```
+GET /api/v1/users/<user_id>
 ```
 
 ## Local Setup
