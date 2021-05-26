@@ -4,7 +4,7 @@ RSpec.describe "Users", type: :request do
   describe "Single User request" do
     context "New User" do
       it "succesfully creates new user with required attributes" do
-        payload = {name: 'tester', email: 'test@test.com', password: 'password'}
+        payload = {name: 'tester', email: 'test@test.com', password: 'password', password_confirmation: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(:success)
         resp = JSON.parse(response.body, :symbolize_names => true)
@@ -16,8 +16,16 @@ RSpec.describe "Users", type: :request do
         expect(resp[:data][:attributes][:email]).to eql(payload[:email])
       end
 
+      it "returns an error with bad password confirmtion" do
+        payload = {name: 'tester', email: 'test@test.com', password: 'password', password_confirmation: 'passworddd'}
+        post "/api/v1/users/new", params: payload
+        expect(response).to have_http_status(:conflict)
+        resp = JSON.parse(response.body, :symbolize_names => true)
+        expect(resp[:errors]).to eql("Passwords Don't Match")
+      end
+
       it "returns an error with missing name" do
-        payload = {email: 'test@test.com', password: 'password'}
+        payload = {email: 'test@test.com', password: 'password', password_confirmation: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(400)
         resp = JSON.parse(response.body, :symbolize_names => true)
@@ -27,7 +35,7 @@ RSpec.describe "Users", type: :request do
       end
 
       it "returns an error with missing email" do
-        payload = {name: 'tester', password: 'password'}
+        payload = {name: 'tester', password: 'password', password_confirmation: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(400)
         resp = JSON.parse(response.body, :symbolize_names => true)
@@ -37,7 +45,7 @@ RSpec.describe "Users", type: :request do
       end
 
       it "returns an error with missing email and name" do
-        payload = {password: 'password'}
+        payload = {password: 'password', password_confirmation: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(400)
         resp = JSON.parse(response.body, :symbolize_names => true)

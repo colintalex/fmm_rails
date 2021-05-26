@@ -28,11 +28,29 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
       expect(User.all.length).to eql(0)
     end
+  end
 
-    context "Email" do
-      it "checks email for proper format" do
+  context "Relationship to Favorites" do
+    before(:each) do
+      @user = User.create!(name: 'Tester', email: 'test@test.com', password: 'password')
+    end
 
-      end
+    it "successfully creates multiple favorite with required attributes" do
+      expect{@user.favorites.create!(
+                name: 'name',
+                fmid: 4760253,
+                address: 'addy',
+                dates: 'datestring',
+                times: 'timestring')}.to_not raise_error()
+      expect(@user.favorites.length).to eql(1)
+      expect{@user.favorites.create!(
+                name: 'Market',
+                fmid: 4720253,
+                address: 'addy',
+                dates: 'datestring',
+                times: 'timestring')}.to_not raise_error()
+      expect(@user.favorites.length).to eql(2)
+      @user.favorites.destroy_all
     end
   end
 end
