@@ -4,7 +4,7 @@ RSpec.describe "Users", type: :request do
   describe "Single User request" do
     context "New User" do
       it "succesfully creates new user with required attributes" do
-        payload = {name: 'tester', email: 'test@test.com'}
+        payload = {name: 'tester', email: 'test@test.com', password: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(:success)
         resp = JSON.parse(response.body, :symbolize_names => true)
@@ -17,7 +17,7 @@ RSpec.describe "Users", type: :request do
       end
 
       it "returns an error with missing name" do
-        payload = {email: 'test@test.com'}
+        payload = {email: 'test@test.com', password: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(400)
         resp = JSON.parse(response.body, :symbolize_names => true)
@@ -27,7 +27,7 @@ RSpec.describe "Users", type: :request do
       end
 
       it "returns an error with missing email" do
-        payload = {name: 'tester'}
+        payload = {name: 'tester', password: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(400)
         resp = JSON.parse(response.body, :symbolize_names => true)
@@ -37,7 +37,7 @@ RSpec.describe "Users", type: :request do
       end
 
       it "returns an error with missing email and name" do
-        payload = {}
+        payload = {password: 'password'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(400)
         resp = JSON.parse(response.body, :symbolize_names => true)
@@ -47,40 +47,42 @@ RSpec.describe "Users", type: :request do
       end
 
       it "returns an error for duplicate email" do
-        user = User.create!(name: 'Testeroni', email: 'test@test.com')
+        user = User.create!(name: 'Testeroni', email: 'test@test.com', password: 'password')
         payload = {name: 'tester', email: 'test@test.com'}
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(400)
         resp = JSON.parse(response.body, :symbolize_names => true)
         expect(resp[:status]).to eql('error')
-        expect(resp[:messages]).to eql(["Email has already been taken"])
+        expect(resp[:messages]).to eql(["Email has already been taken", "Password can't be blank"])
         expect(resp).to_not have_key(:data)
       end
     end
 
     context "Existing User" do
+      before(:each) do
+            @user = User.create!(name: 'Test', email: 'test@test.com', password: 'password')
+            payload = {email: 'test@test.com', password: 'password'}
+            post '/api/v1/auth/login', params: payload
+            @resp_init = JSON.parse(response.body, symbolize_names: true)
+            @auth = {'Authorization': "Bearer #{@resp_init[:token]}"}
+      end
+
       it "successfully returns a single user" do
-        user = User.create!(name: 'Tester', email: 'test@test.com')
-        get "/api/v1/users/#{user.id}"
+        get "/api/v1/users/#{@user.id}", headers: @auth
         expect(response).to have_http_status(:success)
         resp = JSON.parse(response.body, :symbolize_names => true)
-        expect(resp[:data][:id]).to eql(user.id.to_s)
+        expect(resp[:data][:id]).to eql(@user.id.to_s)
         expect(resp[:data][:type]).to eql('user')
-        expect(resp[:data][:attributes][:id]).to eql(user.id)
-        expect(resp[:data][:attributes][:name]).to eql(user.name)
-        expect(resp[:data][:attributes][:email]).to eql(user.email)
-        user.destroy
+        expect(resp[:data][:attributes][:id]).to eql(@user.id)
+        expect(resp[:data][:attributes][:name]).to eql(@user.name)
+        expect(resp[:data][:attributes][:email]).to eql(@user.email)
       end
 
       it "returns an error for invalid user id" do
-        user = User.create!(name: 'Tester', email: 'test@test.com')
-        get "/api/v1/users/451231234123"
-        expect(response).to have_http_status(:bad_request)
+        get "/api/v1/users/451231234123", headers: @auth
+        expect(response).to have_http_status(:not_found)
         resp = JSON.parse(response.body, :symbolize_names => true)
-        expect(resp[:status]).to eql('error')
-        expect(resp[:messages]).to eql(["Invalid User ID"])
-        expect(resp).to_not have_key(:data)
-        user.destroy
+        expect(resp[:errors]).to eql('User not found')
       end
     end
   end
