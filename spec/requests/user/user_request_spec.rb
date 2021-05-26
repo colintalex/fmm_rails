@@ -8,12 +8,16 @@ RSpec.describe "Users", type: :request do
         post "/api/v1/users/new", params: payload
         expect(response).to have_http_status(:success)
         resp = JSON.parse(response.body, :symbolize_names => true)
-        expect(resp[:data]).to have_key(:id)
-        expect(resp[:data][:type]).to eql('user')
-        expect(resp[:data]).to have_key(:attributes)
-        expect(resp[:data][:attributes]).to have_key(:id)
-        expect(resp[:data][:attributes][:name]).to eql(payload[:name])
-        expect(resp[:data][:attributes][:email]).to eql(payload[:email])
+        expect(resp).to have_key(:token)
+        expect(resp).to have_key(:exp)
+        expect(resp).to have_key(:user)
+        expect(resp[:user]).to have_key(:data)
+        expect(resp[:user][:data]).to have_key(:id)
+        expect(resp[:user][:data][:type]).to eql('user')
+        expect(resp[:user][:data]).to have_key(:attributes)
+        expect(resp[:user][:data][:attributes]).to have_key(:id)
+        expect(resp[:user][:data][:attributes][:name]).to eql(payload[:name])
+        expect(resp[:user][:data][:attributes][:email]).to eql(payload[:email])
       end
 
       it "returns an error with bad password confirmtion" do
