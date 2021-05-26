@@ -21,13 +21,13 @@ The API utilizes TDD practices to ensure maximum test coverage and reliable oper
 ## Endpoints
 
 ### Users
-
-Base URL
+---
+### Base URL
 ```
 /api/v1/users
 ```
-
-#### New User Endpoint
+---
+### New User Endpoint
 ```
 POST /api/v1/users/new
 ```
@@ -43,13 +43,51 @@ Payload
 Response
 ```
 {
+    "token": <user_token>,
+    "exp": "05-26-2021 04:10",
+    "user": {
+        "data": {
+            "id": "8",
+            "type": "user",
+            "attributes": {
+                "id": 8,
+                "name": "tester",
+                "email": "test223@test.com",
+                "favorites": []
+            },
+            "relationships": {
+                "favorites": {
+                    "data": []
+                }
+            }
+        }
+    }
+}
+```
+---
+
+### Show Single User
+```
+GET /api/v1/users/<user_id>
+```
+Headers
+```
+'Authorization': Bearer <user_token>
+```
+Payload
+```
+n/a
+```
+Response
+```
+{
     "data": {
-        "id": "1",
+        "id": "8",
         "type": "user",
         "attributes": {
-            "id": 1,
+            "id": 8,
             "name": "tester",
-            "email": "test@test.com",
+            "email": "test223@test.com",
             "favorites": []
         },
         "relationships": {
@@ -60,12 +98,46 @@ Response
     }
 }
 ```
-
-#### Show Single User
+---
+### Update Single User
 ```
-GET /api/v1/users/<user_id>
+PUT /api/v1/users/<user_id>
 ```
-
+Headers
+```
+'Authorization': Bearer <user_token>
+```
+Payload
+```
+{
+  name: ?,
+  email: ?,
+  password: ?,
+  password_confirmation: ?,
+  default_location: ?,
+}
+```
+Response (Updated User)
+```
+{
+    "data": {
+        "id": "8",
+        "type": "user",
+        "attributes": {
+            "id": 8,
+            "name": "tester",
+            "email": "test223@test.com",
+            "favorites": []
+        },
+        "relationships": {
+            "favorites": {
+                "data": []
+            }
+        }
+    }
+}
+```
+---
 ## Local Setup
 
 Clone down repository to your local machine.
