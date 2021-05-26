@@ -22,23 +22,24 @@ The API utilizes TDD practices to ensure maximum test coverage and reliable oper
 
 ### Users
 ---
+
 ### Base URL
 ```
 /api/v1/users
 ```
 ---
 ### New User Endpoint
-```
-POST /api/v1/users/new
-```
+| URI | Headers |
+| --- | ---|
+| ```POST /api/v1/users/new``` | none | 
 Payload
 ```
 {
-  name: 'tester',
-  email: 'test@test.com',
-  password: 'password',
-  password_confirmation: 'password'
-  }
+    "name": "tester",
+    "email": "test223@test.com", 
+    "password": "password",
+    "password_confirmation": "password"
+}
 ```
 Response
 ```
@@ -67,13 +68,9 @@ Response
 ---
 
 ### Show Single User
-```
-GET /api/v1/users/<user_id>
-```
-Headers
-```
-'Authorization': Bearer <user_token>
-```
+| URI | Headers |
+| --- | ---|
+| ```GET /api/v1/users/<user_id>``` | ```'Authorization': 'Bearer {user_token}'``` | 
 Payload
 ```
 n/a
@@ -100,13 +97,10 @@ Response
 ```
 ---
 ### Update Single User
-```
-PUT /api/v1/users/<user_id>
-```
-Headers
-```
-'Authorization': Bearer <user_token>
-```
+| URI | Headers |
+| --- | ---|
+| ```PUT /api/v1/users/<user_id>``` | ```'Authorization': 'Bearer {user_token}'``` |
+
 Payload
 ```
 {
@@ -139,16 +133,12 @@ Response (Updated User)
 ```
 ---
 ### Delete Single User
-```
-DEL /api/v1/users/<user_id>
-```
-Headers
-```
-'Authorization': Bearer <user_token>
-```
+| URI | Headers |
+| --- | ---|
+| ```DEL /api/v1/users/<user_id>``` | ```'Authorization': 'Bearer {user_token}'``` |
 Payload
 ```
-n/a
+none
 ```
 Response
 ```
