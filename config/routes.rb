@@ -5,8 +5,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get '/users/:id', to: 'users#show'
       post '/users/new', to: 'users#create'
+      get '/users/:id', to: 'users#show'
+      put '/users/:id', to: 'users#update'
+      delete '/users/:id', to: 'users#destroy'
+
+      post '/users/:user_id/favorites/new', to: 'favorites#create'
+      delete '/users/:user_id/favorites/:id', to: 'favorites#destroy'
 
       post '/auth/login', to: 'auth#login'
     end
