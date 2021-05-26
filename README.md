@@ -31,9 +31,14 @@ Base URL
 ```
 /api/v1/users/new
 ```
-Request Params
+Payload
 ```
-
+{
+  name: 'tester',
+  email: 'test@test.com',
+  password: 'password',
+  password_confirmation: 'password'
+  }
 ```
 
 ## Local Setup
