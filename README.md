@@ -11,6 +11,31 @@ This API was developed as backend replacement for the FindMyMarket Web applicati
 Developed from scratch, this API improves on the previous version by implementing background workers for User notifications. 
 The API utilizes TDD practices to ensure maximum test coverage and reliable operation.
 
+## Goals
+
+- Utilize API keys for other client usage(open-source, educational)
+- Implement ActiveJobs for verifying favorite market accuracy
+- Implement SMS/email reminders for upcoming favorite markets
+- Provide excellent end result documentation
+
+## Endpoints
+
+### Users
+
+Base URL
+```
+/api/v1/users
+```
+
+#### New User Endpoint
+```
+/api/v1/users/new
+```
+Request Params
+```
+
+```
+
 ## Local Setup
 
 Clone down repository to your local machine.
