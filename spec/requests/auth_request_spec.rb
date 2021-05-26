@@ -49,7 +49,24 @@ RSpec.describe "User Auth", type: :request do
             get "/api/v1/users/#{@user.id}"
             expect(response).to have_http_status(:unauthorized)
             resp = JSON.parse(response.body, symbolize_names: true)
-            expect(resp[:errors]).to eql("Nil JSON web token")
+            expect(resp[:error]).to eql("Nil JSON web token")
+        end
+
+        it "returns an error with another users token" do
+            token = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1NDcsImV4cCI6MTYyMTk5NjMwNn0.yAxEVdITH50WcuOl0jxAUc4gJztdFB07zc10KRJHED0'}
+            get "/api/v1/users/#{@user.id}", headers: token
+            expect(response).to have_http_status(:unauthorized)
+            resp = JSON.parse(response.body, symbolize_names: true)
+            expect(resp[:error]).to eql("Couldn't find User with 'id'=547") # ID is depicted in middle segment of token ^
+        end
+
+        it "returns an error with incomplete token" do
+            # Token is same as above but removed handful of characters
+            token = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NJ9.eyJ1c2VyX2lkIjo1NDcsImV4cCI6MTyMTk5NjMwNn0.yAxEVdITH50WcuOl0jxAUc4gJztdFB07zc10RJHED0'}
+            get "/api/v1/users/#{@user.id}", headers: token
+            expect(response).to have_http_status(:unauthorized)
+            resp = JSON.parse(response.body, symbolize_names: true)
+            expect(resp[:error]).to eql("Invalid segment encoding")
         end
     end
 end
