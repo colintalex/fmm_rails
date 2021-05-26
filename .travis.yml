@@ -7,6 +7,7 @@ before_install:
 - gem install pg -v '1.2.3' --source 'https://rubygems.org/'
 before_script:
   - psql -c 'create database fmm_rails_test;' -U postgres
+script: bundle exec rake
 deploy:
   provider: heroku
   api_key:

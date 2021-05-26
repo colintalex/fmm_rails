@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   context "Validations" do
     it "is created with required attributes" do
-      user = User.create!(name: 'Tester', email: 'test@test.com')
+      user = User.create!(name: 'Tester', email: 'test@test.com', password: 'password')
       expect(user).to be_valid
       expect(user.name).to eql('Tester')
       expect(user.email).to eql('test@test.com')
