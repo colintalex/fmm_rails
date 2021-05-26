@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.com/colintalex/fmm_rails.svg?branch=main)](https://travis-ci.com/colintalex/fmm_rails)
 [![codecov](https://codecov.io/gh/colintalex/fmm_rails/branch/main/graph/badge.svg?token=C0VHeLGbZi)](https://codecov.io/gh/colintalex/fmm_rails)
 [![Known Vulnerabilities](https://snyk.io/test/github/colintalex/fmm_rails/badge.svg)](https://snyk.io/test/github/colintalex/fmm_rails)
-
+[![Maintainability](https://api.codeclimate.com/v1/badges/b307c94e4e20cb7d4eff/maintainability)](https://codeclimate.com/github/colintalex/fmm_rails/maintainability)
 
 # README
 
