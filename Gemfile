@@ -7,8 +7,9 @@ gem 'rails', '~> 6.0.3', '>= 6.0.3.5'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 4.1'
 gem 'jsonapi-serializer'
-
-
+gem 'rack-cors'
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :test do 
