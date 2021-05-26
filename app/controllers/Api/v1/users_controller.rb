@@ -30,8 +30,6 @@ class Api::V1::UsersController < ApplicationController
         if @current_user.id == params[:id].to_i
             @current_user.destroy!
             render json: { message: 'User successfully deleted'}, status: :accepted
-        else
-            render json: { error: 'Authorization Conflict, Token and Request ID does not match'}
         end
     end
 
