@@ -52,12 +52,15 @@ RSpec.describe "User Auth", type: :request do
             expect(resp[:error]).to eql("Nil JSON web token")
         end
 
-        it "returns an error with another users token" do
-            token = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1NDcsImV4cCI6MTYyMTk5NjMwNn0.yAxEVdITH50WcuOl0jxAUc4gJztQFB07zc10KRJHED0'}
+        it "returns an error with missing users token" do
+            temp_user = User.create(name: 'tester', email: 'temp@temp.com', password: 'password', password_confirmation: 'password')
+            jwt = JsonWebToken.encode(user_id: temp_user.id)
+            temp_user.destroy!
+            token = {'Authorization': "Bearer #{jwt}"}
             get "/api/v1/users/#{@user.id}", headers: token
             expect(response).to have_http_status(:unauthorized)
             resp = JSON.parse(response.body, symbolize_names: true)
-            expect(resp[:error]).to eql("Signature verification raised") # ID is depicted in middle segment of token ^
+            expect(resp[:error]).to eql("Couldn't find User with 'id'=#{temp_user.id}") # ID is depicted in middle segment of token ^
         end
 
         it "returns an error with incomplete token" do
