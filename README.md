@@ -138,6 +138,25 @@ Response (Updated User)
 }
 ```
 ---
+### Delete Single User
+```
+DEL /api/v1/users/<user_id>
+```
+Headers
+```
+'Authorization': Bearer <user_token>
+```
+Payload
+```
+n/a
+```
+Response
+```
+{
+    "message": "User successfully deleted"
+}
+```
+---
 ## Local Setup
 
 Clone down repository to your local machine.
