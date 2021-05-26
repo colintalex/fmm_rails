@@ -42,11 +42,22 @@ Payload
 ```
 Response
 ```
-{data:
-  {
-    id: <user_id:String>,
-    type: <String>
-  }
+{
+    "data": {
+        "id": "1",
+        "type": "user",
+        "attributes": {
+            "id": 1,
+            "name": "tester",
+            "email": "test@test.com",
+            "favorites": []
+        },
+        "relationships": {
+            "favorites": {
+                "data": []
+            }
+        }
+    }
 }
 ```
 
