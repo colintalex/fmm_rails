@@ -32,6 +32,7 @@ The API utilizes TDD practices to ensure maximum test coverage and reliable oper
 | URI | Headers |
 | --- | ---|
 | ```POST /api/v1/users/new``` | none | 
+
 Payload
 ```
 {
@@ -71,6 +72,7 @@ Response
 | URI | Headers |
 | --- | ---|
 | ```GET /api/v1/users/<user_id>``` | ```'Authorization': 'Bearer {user_token}'``` | 
+
 Payload
 ```
 n/a
@@ -136,6 +138,7 @@ Response (Updated User)
 | URI | Headers |
 | --- | ---|
 | ```DEL /api/v1/users/<user_id>``` | ```'Authorization': 'Bearer {user_token}'``` |
+
 Payload
 ```
 none
