@@ -1,10 +1,10 @@
 class Api::V1::UsersController < ApplicationController
     before_action :authorize_request, except: :create
-    before_action :find_user, except: %i[create index]
+    # before_action :find_user, except: :create
     before_action :confirm_password, only: :create
 
     def show
-        render json: UserSerializer.new(@user)
+        render json: UserSerializer.new(@current_user)
     end
 
     def create
@@ -16,6 +16,23 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
+    def update
+        begin
+            @current_user.update!(user_params)
+        rescue ActiveRecord::RecordInvalid => e
+            render json: {error: e.message}, status: :not_acceptable
+        else
+            render json: UserSerializer.new(@current_user)
+        end
+    end
+
+    def destroy
+        if @current_user.id == params[:id].to_i
+            @current_user.destroy!
+            render json: { message: 'User successfully deleted'}, status: :accepted
+        end
+    end
+
     private
 
     def confirm_password
@@ -24,11 +41,11 @@ class Api::V1::UsersController < ApplicationController
         end
     end
 
-    def find_user
-        @user = User.find_by_id!(user_params[:id])
-        rescue ActiveRecord::RecordNotFound
-            render json: { errors: 'User not found'}, status: :not_found
-    end
+    # def find_user
+    #     @user = User.find_by_id!(user_params[:id])
+    #     rescue ActiveRecord::RecordNotFound
+    #         render json: { errors: 'User not found'}, status: :not_found
+    # end
 
     def user_params
         params.permit(:id, :name, :email, :password, :password_confirmation)
